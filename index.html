@@ -125,6 +125,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
+        const port = window.location.port;
         const vm = new Vue({
             el: '#app',
             data: {
@@ -140,7 +141,7 @@
                     this.loading = true;
                     this.message = ''
                     this.validationError = false;
-                    axios.get(`http://localhost:8088/api/v1/search?q=${this.book_name}&filter=${this.filter}`)
+                    axios.get(`http://localhost:${port}/api/v1/search?q=${this.book_name}&filter=${this.filter}`)
                         .then(results => {
                             const response = results.data.response;
                             const responseCode = results.data.code;
