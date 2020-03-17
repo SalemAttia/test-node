@@ -9,11 +9,20 @@ all added feature you will find it in pull request you can tap between the pull 
 - adding validation on input
 - adding filter to the endpoint
 - useing vuejs and axios for working on the front-end part
-
-## To Be Done
 - Adding Docker
 - Circleci
+
+## To Be Done
+- Refactroing
+- add missing requirements
 - Front-end Part sort
+
+## How To Run Docker 
+you should have docker installed first then do the following
+- docker-compose up --build
+- don't forget to add .env file
+- docker-compose exec node npm run check // for test and lint
+- docker-compose exec node npm run dev // for run the serve
 
 ## Jumia One - Book Service
 
