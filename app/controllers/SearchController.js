@@ -1,5 +1,7 @@
 const BaseController = require('./BaseController');
 const SearchService = require('../services/SearchService');
+const _  = require('lodash');
+const FILTER_FIELDS = ['title', 'author'];
 
 module.exports = class SearchController extends BaseController {
 
@@ -34,7 +36,9 @@ module.exports = class SearchController extends BaseController {
      */
     async searchAction(req, res) {
         try {
-            const result = await  this.SearchService.search(req.query.q);
+            const options = _.pick(req.query, ['q', 'filter']);
+            const filter = _.includes(FILTER_FIELDS, options.filter) ? req.query.filter : 'all';
+            const result = await  this.SearchService.search(req.query.q, filter);
             res.status(200).json(super.sendResponse('SUCCESS', result));
         } catch(error) {
             res.status(500).json(super.sendResponse('BACKEND_ERROR', error.message));

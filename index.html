@@ -14,7 +14,7 @@
         }
 
         .search {
-            width: 350px;
+            width: 500px;
             display: flex;
             margin: 10% auto;
         }
@@ -91,6 +91,11 @@
         <div class="search">
           
             <input type="text" v-model="book_name" class="searchTerm" placeholder="What book are you looking for?">
+            <select v-model="filter">
+                <option value="all">All</option>
+                <option value="author">book author</option>
+                <option value="title">book title</option>
+            </select>
             <button type="submit" v-on:click="getBooks" class="searchButton">
                 Search
             </button>
@@ -120,6 +125,7 @@
         const vm = new Vue({
             el: '#app',
             data: {
+                filter:'all',
                 book_name: '',
                 results: [],
                 loading: false,
@@ -129,7 +135,7 @@
                 getBooks() {
                     this.loading = true;
                     this.message = ''
-                    axios.get(`http://localhost:8088/api/v1/search?q=${this.book_name}`)
+                    axios.get(`http://localhost:8088/api/v1/search?q=${this.book_name}&filter=${this.filter}`)
                         .then(results => {
                             const response = results.data.response;
                             const responseCode = results.data.code;
