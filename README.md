@@ -9,10 +9,12 @@ all added feature you will find it in pull request you can tap between the pull 
 - adding validation on input
 - adding filter to the endpoint
 - useing vuejs and axios for working on the front-end part
-
-## To Be Done
 - Adding Docker
 - Circleci
+
+## To Be Done
+- Refactroing
+- add missing requirements
 - Front-end Part sort
 
 ## Jumia One - Book Service
