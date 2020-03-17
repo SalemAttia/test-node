@@ -1,4 +1,5 @@
 const BaseController = require('./BaseController');
+const path = require('path');
 
 module.exports = class HomeController extends BaseController {
 
@@ -7,7 +8,7 @@ module.exports = class HomeController extends BaseController {
      */
     init() {
         this.server.get('/', this.homeAction);
-        this.server.get('/api/v1', this.homeAction);
+        this.server.get('/api/v1', this.healthcheck);
         this.server.use((req, res) => {
             res.status(404).send(super.sendResponse('NOT_FOUND', 'Resource not found'));
         });
@@ -36,8 +37,13 @@ module.exports = class HomeController extends BaseController {
      * @param {Object} req 
      * @param {Object} res 
      */
-    homeAction(req, res) {
+    healthcheck(req, res) {
         res.status(200).json(super.sendResponse('SUCCESS', 'You know for search books'));
+    }
+
+    homeAction(req, res) {
+        const pathFile = path.join(__dirname, '../../index.html');
+        res.sendFile(pathFile);
     }
 
 };

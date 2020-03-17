@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search For Books</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+        body {
+            background: #f2f2f2;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .search {
+            width: 350px;
+            display: flex;
+            margin: 10% auto;
+        }
+
+        .searchTerm {
+            width: 100%;
+            border: 3px solid #00B4CC;
+            border-right: none;
+            padding: 5px;
+            height: 20px;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+            color: #9DBFAF;
+        }
+
+        .searchTerm:focus {
+            color: #00B4CC;
+        }
+
+        .searchButton {
+            height: 36px;
+            border: 1px solid #00B4CC;
+            background: #00B4CC;
+            text-align: center;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .wrap {
+            width: 90%;
+            margin: 1px auto;
+            text-align: center;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 40%;
+            float: left;
+            margin: 2% 2%;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            padding: 2px 16px;
+        }
+
+        .loading {
+            text-align: center;
+            margin: 4% auto;
+        }
+
+        .card_image {
+            width: 100%;
+            height: 200px;
+        }
+
+        .book_desc {
+            text-align: center;
+            height: 120px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap" id="app">
+        
+        <div class="search">
+          
+            <input type="text" v-model="book_name" class="searchTerm" placeholder="What book are you looking for?">
+            <button type="submit" v-on:click="getBooks" class="searchButton">
+                Search
+            </button>
+        </div>
+        <br>
+        <div class="row">
+            <div class="loading" v-if="loading">Loading...</div>
+            <div class="loading" v-if="message">
+                <p>
+                    {{message}}
+                </p>
+            </div>
+
+            <div class="card" v-for="result in results" v-if="results.length > 0 && loading === false">
+                <img :src="result.best_book.image_url" alt="Avatar" class="card_image">
+                <div class="container">
+                    <h4>{{ result.best_book.author.name }}</h4>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                book_name: '',
+                results: [],
+                loading: false,
+                message: ''
+            },
+            methods: {
+                getBooks() {
+                    this.loading = true;
+                    this.message = ''
+                    axios.get(`http://localhost:8088/api/v1/search?q=${this.book_name}`)
+                        .then(results => {
+                            const response = results.data.response;
+                            const responseCode = results.data.code;
+                            const totalResults = response ? response['total-results'] : 0;
+                            if (totalResults === "0") {
+                                this.message = 'No Data Found';
+                            }
+                            if (totalResults !== 0 && responseCode !== "SUCCESS") {
+                                this.message = 'Something went Wrong please try again';
+                            }
+                            if (responseCode === "SUCCESS") {
+                                const data = response.results.work;
+                                this.results = data;
+                            }
+                            this.loading = false;
+                        })
+                        .catch(error => { this.loading = false; console.log(error) });
+                }
+            }
+        }); 
+    </script>
+</body>
+
+</html>

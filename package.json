@@ -8,7 +8,8 @@
     "dev": "nodemon index.js",
     "test": "./node_modules/mocha/bin/mocha ./test/ --exit --recursive --timeout=60000",
     "lint": "./node_modules/.bin/eslint ./app/ ./test/",
-    "lint-fix": "./node_modules/.bin/eslint ./app/ ./test/ ./config/ --fix"
+    "lint-fix": "./node_modules/.bin/eslint ./app/ ./test/ ./config/ --fix",
+    "check": "npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
