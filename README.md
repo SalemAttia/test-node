@@ -1,3 +1,20 @@
+## Note !!! 
+all added feature you will find it in pull request you can tap between the pull requests to see my changes and note that i will add docker in diffrent pull request and i wont merge it to the master in case you don't use docker and i will add cirecleci to it as well  
+## Added Feature
+- Adding Eslint
+- Fix all eslint issues
+- Adding test dir with add requred packages
+- Write Search Test
+- Adding Index Page with search input and filtration by title and author name
+- adding validation on input
+- adding filter to the endpoint
+- useing vuejs and axios for working on the front-end part
+
+## To Be Done
+- Adding Docker
+- Circleci
+- Front-end Part sort
+
 ## Jumia One - Book Service
 
 Hello, I'm is a micro service in NodeJS.
