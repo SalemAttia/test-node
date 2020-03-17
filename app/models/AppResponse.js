@@ -1,4 +1,5 @@
 module.exports = class AppResponse {
+
     /**
      * @param {ResponseCode} code 
      * @param {Object} response 
@@ -16,4 +17,5 @@ module.exports = class AppResponse {
         this.errors = errors;
         return this;
     }
-} 
+
+}; 

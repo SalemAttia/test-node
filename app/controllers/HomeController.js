@@ -2,19 +2,16 @@ const BaseController = require('./BaseController');
 
 module.exports = class HomeController extends BaseController {
 
-    constructor(server) {
-        super(server);
-    }
     /**
      * Register Controller
      */
     init() {
         this.server.get('/', this.homeAction);
         this.server.get('/api/v1', this.homeAction);
-        this.server.use((req, res, next) => {
+        this.server.use((req, res) => {
             res.status(404).send(super.sendResponse('NOT_FOUND', 'Resource not found'));
         });
-        this.server.use((err, req, res, next) => {
+        this.server.use((err, req, res) => {
             res.status(500).send(super.sendResponse('UNKNOWN_ERROR', err.message));
         });
     }
@@ -38,9 +35,9 @@ module.exports = class HomeController extends BaseController {
      * Say Hello
      * @param {Object} req 
      * @param {Object} res 
-     * @param {function} next 
      */
-    homeAction(req, res, next) {
-        res.status(200).json(super.sendResponse('SUCCESS', "You know for search books"));
+    homeAction(req, res) {
+        res.status(200).json(super.sendResponse('SUCCESS', 'You know for search books'));
     }
-}
+
+};

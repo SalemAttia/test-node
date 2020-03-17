@@ -14,22 +14,21 @@ module.exports = class BaseController {
         return this.server;
     }
 
-    sendResponse(code, message, errors)
-    {
-        if (errors) {
+    sendResponse(code, message, errors) {
+        if(errors) {
             return (new AppResponse(code, message)).setErrors(errors);
-        } else {
-            return new AppResponse(code, message);
-        }
+        } 
+        return new AppResponse(code, message);
     }
 
     returnResponseWithError(res, wtiResponse, key, next, code) {
-        let _message =  (wtiResponse.status == '404') ? `key ${key} not found` : wtiResponse.data;
+        const _message =  (wtiResponse.status === '404') ? `key ${key} not found` : wtiResponse.data;
         res.status(wtiResponse.status).json(this.sendResponse(code, _message));
     }
 
     returnResponse(res, data, next, code) {
-        let _httpCode =  (data.id) ? 200 : 404;
+        const _httpCode =  (data.id) ? 200 : 404;
         res.status(_httpCode).json(this.sendResponse(code, data));
     }
-}
+
+};
