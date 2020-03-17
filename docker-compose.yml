@@ -1,0 +1,15 @@
+version: '3'
+services:
+  node:
+    tty: true
+    stdin_open: true
+    container_name: jumia-one-node-js
+    env_file:
+      - ./.env
+    build:
+      context: .
+    ports:
+      - 4040:4040
+    volumes:
+      - .:/var/code:rw
+    entrypoint: './startup.sh'
