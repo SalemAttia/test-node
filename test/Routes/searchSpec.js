@@ -41,5 +41,15 @@ describe('Routes/api/v1/search', () => {
                     expect(response.body.code).to.be.equal('SUCCESS');
                 }),
         );
+
+        it('should return data with limit 10', () => 
+            request(app)
+                .get('/api/v1/search?q=any&filter=title&sort=asc&limit=10')
+                .expect(200)
+                .then(response => {
+                    expect(response.body.code).to.be.equal('SUCCESS');
+                    expect(response.body.response.results.work).to.have.length(10);
+                }),
+        );
     });
 });
