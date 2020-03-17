@@ -11,7 +11,6 @@ module.exports = class SearchController extends BaseController {
         super(server);
         this.SearchService = searchService || new SearchService();
     }
-    
 
     /**
      * Register Controller
@@ -31,15 +30,15 @@ module.exports = class SearchController extends BaseController {
     /**
      * Search Action
      * @param {Object} req 
-     * @param {Object} res 
-     * @param {function} next 
+     * @param {Object} res  
      */
-    async searchAction(req, res, next) {
+    async searchAction(req, res) {
         try {
-            let result = await  this.SearchService.search(req.query['q']);
+            const result = await  this.SearchService.search(req.query.q);
             res.status(200).json(super.sendResponse('SUCCESS', result));
-        } catch (e) {
-            res.status(500).json(super.sendResponse('BACKEND_ERROR', e.message));
+        } catch(error) {
+            res.status(500).json(super.sendResponse('BACKEND_ERROR', error.message));
         }
     }
-}
+
+};
