@@ -96,6 +96,14 @@
                 <option value="author">book author</option>
                 <option value="title">book title</option>
             </select>
+            <select v-model="order">
+                <option value="desc">desc</option>
+                <option value="asc">asc</option>
+            </select>
+            <select v-model="limit">
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select>
             <button type="submit" v-on:click="getBooks" class="searchButton">
                 Search
             </button>
@@ -130,18 +138,20 @@
             el: '#app',
             data: {
                 filter:'all',
+                order: 'desc',
                 validationError: false,
                 book_name: '',
                 results: [],
                 loading: false,
-                message: ''
+                message: '',
+                limit:10
             },
             methods: {
                 getBooks() {
                     this.loading = true;
                     this.message = ''
                     this.validationError = false;
-                    axios.get(`http://localhost:${port}/api/v1/search?q=${this.book_name}&filter=${this.filter}`)
+                    axios.get(`http://localhost:${port}/api/v1/search?q=${this.book_name}&filter=${this.filter}&order=${this.order}&limit=${this.limit}`)
                         .then(results => {
                             const response = results.data.response;
                             const responseCode = results.data.code;

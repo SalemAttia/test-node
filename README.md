@@ -11,11 +11,15 @@ all added feature you will find it in pull request you can tap between the pull 
 - useing vuejs and axios for working on the front-end part
 - Adding Docker
 - Circleci
+- add missing requirements
+- Front-end Part sort
 
 ## To Be Done
 - Refactroing
-- add missing requirements
-- Front-end Part sort
+- adding packages checks for updates
+- update all requred packges
+- add more tests
+
 
 ## How To Run Docker 
 you should have docker installed first then do the following
